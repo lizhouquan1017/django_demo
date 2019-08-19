@@ -30,5 +30,6 @@ urlpatterns = [
     path('del_student/', views.del_student),
     path('edit_student/', views.edit_student),
     path('modal_add_student/', views.modal_add_student),
-    path('modal_edit_student/', views.modal_edit_student)
+    path('modal_edit_student/', views.modal_edit_student),
+    path('teachers/', views.teachers)
 ]

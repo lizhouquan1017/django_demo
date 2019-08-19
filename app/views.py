@@ -132,3 +132,20 @@ def modal_edit_student(request):
         ret['message'] = "处理异常"
     return HttpResponse(json.dumps(ret))
 
+
+def teachers(request):
+    teacher_list = sqlheper.get_list("""SELECT t_teacher.id as tid,t_teacher.teacher_name as tname,
+    t_class.class_name as cname FROM t_teacher LEFT JOIN t_t_c ON t_teacher.id = t_t_c.t_id 
+    LEFT JOIN t_class ON t_class.id = t_t_c.c_id""", [])
+
+    print(teacher_list)
+    result = {}
+    for row in teacher_list:
+        tid = row['tid']
+        if tid in result:
+            result[tid]['cnames'].append(row['cname'])
+        else:
+            result[tid] = {'tid': row['tid'], 'tname': row['tname'], 'cnames': [row['cname'], ]}
+    print(result.values())
+    return render(request, 'teacher.html', {'teacher_list': result.values()})
+
